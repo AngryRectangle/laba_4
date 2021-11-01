@@ -22,3 +22,6 @@ Sorting times for n = 100000: merge - 31.32999587059021 quick sort 2 - 525.63894
 
 ### Task 6
 Использована radix sort со сложностью O(n)
+
+### Task 7
+Использовал radix sort для сортировки строк

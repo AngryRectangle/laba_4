@@ -2,8 +2,8 @@ import math
 import helper
 
 
-def radix_sort(a, result, power, l, r):
-    if power == 0:
+def radix_sort(a, result, power, l, r, m_power):
+    if power > m_power:
         return
 
     c = [0] * 10
@@ -27,9 +27,7 @@ def radix_sort(a, result, power, l, r):
         a[i] = result[i]
 
     last = 0
-    for i in range(0, 10):
-        radix_sort(a, result, power - 1, last, c[i])
-        last = c[i]
+    radix_sort(a, result, power + 1, r, l, m_power)
 
 
 def sort(a, b):
@@ -39,7 +37,7 @@ def sort(a, b):
     sum = 0
     n = [0] * len(res)
     max_power = math.ceil(math.log10(max(res)))
-    radix_sort(res, n, max_power, 0, len(n))
+    radix_sort(res, n, 1, 0, len(n), max_power)
     for i in range(0, len(n), 10):
         sum += n[i]
     return sum
