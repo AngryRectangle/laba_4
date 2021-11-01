@@ -19,13 +19,20 @@ def partition_old(array, l, r):
 
 
 def rand_quick_sort_old(array, l, r):
-    if l < r:
-        k = random.randint(l, r)
-        swap(array, l, k)
-        m = partition_old(array, l, r)
-
-        rand_quick_sort_old(array, l, m - 1)
-        rand_quick_sort_old(array, m + 1, r)
+    stack = list()
+    stack.append((l, r))
+    index = 0
+    while index < len(stack):
+        pair = stack[index]
+        index += 1
+        l = pair[0]
+        r = pair[1]
+        if l < r:
+            k = random.randint(l, r)
+            swap(array, l, k)
+            m = partition_old(array, l, r)
+            stack.append((l, m - 1))
+            stack.append((m + 1, r))
 
 
 def partition(array, l, r):
@@ -48,13 +55,20 @@ def partition(array, l, r):
 
 
 def rand_quick_sort(array, l, r):
-    if l < r:
-        k = random.randint(l, r)
-        swap(array, l, k)
-        s, e = partition(array, l, r)
-
-        rand_quick_sort(array, l, s)
-        rand_quick_sort(array, e, r)
+    stack = list()
+    stack.append((l, r))
+    index = 0
+    while index < len(stack):
+        pair = stack[index]
+        index += 1
+        l = pair[0]
+        r = pair[1]
+        if l < r:
+            k = random.randint(l, r)
+            swap(array, l, k)
+            s, e = partition(array, l, r)
+            stack.append((l, s))
+            stack.append((e, r))
 
 
 arr = [0] * 100

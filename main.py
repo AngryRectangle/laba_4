@@ -1,16 +1,17 @@
-# This is a sample Python script.
+import task_1
+import helper
+import merge
+import sys
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+sys.setrecursionlimit(3000)
+sizes = [10 ** 3, 10 ** 4, 10 ** 5]
+for size in sizes:
+    arr = helper.rand_array(size, 0, 2)
+    copy = list(arr)
+    mergeTime = helper.execution_time(lambda: merge.mergeSort(copy, 0, size - 1))
+    copy = list(arr)
+    quickSortOldTime = helper.execution_time(lambda: task_1.rand_quick_sort_old(copy, 0, size - 1))
+    copy = list(arr)
+    quickSortTime = helper.execution_time(lambda: task_1.rand_quick_sort(copy, 0, size - 1))
+    print(
+        f'Sorting times for n = {size}: merge - {mergeTime} quick sort 2 - {quickSortOldTime} quick sort 3 - {quickSortTime}')
