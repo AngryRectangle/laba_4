@@ -38,12 +38,28 @@ def rand_quick_sort_old(array, l, r, info):
             stack.append((m + 1, r))
 
 
-points = [0] * 10000
-points = list(map(lambda x: (random.randint(-100, 100), random.randint(-100, 100)), points))
+file = open("input.txt")
+raw = file.readline().split()
+count = int(raw[1])
+
+def point(line):
+    data = line.split()
+    return int(data[0]), int(data[1])
+
+
+points = list(map(point, file.read().split('\n')))
+file.close()
 lengths = list(map(lambda x: x[0] * x[0] + x[1] * x[1], points))
 infos = [0] * len(points)
 for i in range(0, len(infos)):
     infos[i] = i
 rand_quick_sort_old(lengths, 0, len(lengths) - 1, infos)
-for i in range(0, 4):
+file = open("output.txt", "w")
+str = ''
+for i in range(0, count):
     print(f'{points[infos[i]]} sqr len {points[infos[i]][0] ** 2 + points[infos[i]][1] ** 2}')
+
+file.write(','.join(map(lambda x: f'[{x[0]}, {x[1]}]', points[slice(0, count)])))
+
+
+file.close()
