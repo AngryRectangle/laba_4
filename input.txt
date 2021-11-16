@@ -1,11 +1,2 @@
-10
-push 2
-push 3
-push 9
-push 7
-push 2
-max
-max
-max
-pop
-max
+4 5
+2 5 2 3
