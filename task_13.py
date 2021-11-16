@@ -20,6 +20,24 @@ class LinkedStack:
         self.current = self.current.next
         return temp.value
 
+    def last(self):
+        return self.current.value
+
+    def __str__(self):
+        res = []
+        temp = self.current
+        while temp is not None:
+            res.append(str(temp.value))
+            temp = temp.next
+
+        result = ""
+        for i in range(len(res) - 1, 0, -1):
+            result += res[i] + " "
+
+        if len(res) > 0:
+            result += res[0]
+        return result
+
 
 class LinkedQueue:
     start = None
