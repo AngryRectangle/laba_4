@@ -57,3 +57,10 @@ class LinkedQueue:
             raise Exception("Queue is empty")
         value = self.start.value
         self.start = self.start.next
+        return value
+
+    def first(self):
+        return self.start.value
+
+    def isEmpty(self):
+        return self.start is None

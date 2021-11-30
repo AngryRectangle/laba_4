@@ -1,35 +1,44 @@
-import TrueStack
+import task_13
 
-tStack = TrueStack.TrueStack()
 file = open("input.txt", "r")
-result = []
-count = int(file.readline())
+buffer_size = int(file.readline().split()[0])
 
-def inversed(last, current):
-    if current == "(":
-        return last == ")"
-    return last == "[" and current == "]"
 
-for i in range(0, count):
-    b = True
-    for char in file.readline():
-        if char == "\n":
-            continue
+def toTuple(line):
+    splitted = line.split()
+    return int(splitted[0]), int(splitted[1])
 
-        if char == "(" or char == "]":
-            tStack.add(char)
-        else:
-            if tStack.length == 0 or inversed(tStack.last(), char):
-                b = False
-                break
-            else:
-                tStack.pop()
-    if b and tStack.length == 0:
-        result.append("YES")
-    else:
-        result.append("NO")
-    tStack.clear()
 
+values = list(toTuple(line) for line in file.readlines())
+values.append((10**6 + 10**5 + 1, 0))
+result = ["-1"] * len(values)
+processorTime = 0
+buffer = task_13.LinkedQueue()
+i = 0
+size = 0
+for packet in values:
+    startTime = packet[0]
+    duration = packet[1]
+    delta = startTime - processorTime
+    while not buffer.isEmpty() and delta - buffer.first()[1] >= 0:
+        current = buffer.dequeue()
+        delta -= current[1]
+        result[current[2]] = str(processorTime)
+        processorTime += current[1]
+        size -= 1
+
+    if buffer.isEmpty():
+        processorTime = startTime
+
+    if size >= buffer_size:
+        continue
+
+    packet = packet[0], packet[1], i
+    i += 1
+    buffer.enqueue(packet)
+    size += 1
+
+result.pop()
 write = open("output.txt", "w")
 write.write("\n".join(result))
 file.close()
