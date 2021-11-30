@@ -1,23 +1,32 @@
-def maxDepth(index, arr, depth):
-    if depth[index] > 0:
-        return
+def maxDepth(arr):
+    depth = [0] * len(arr)
+    stack = list()
+    stack.extend(range(0, len(arr)))
+    while len(stack) > 0:
+        current = stack[len(stack) - 1]
+        if depth[current] > 0:
+            stack.pop()
+            continue
 
-    depth[index] = True
-    if arr[index] == -1:
-        depth[index] = 1
-        return
+        next = arr[current]
+        if next == -1:
+            depth[current] = 1
+            stack.pop()
+            continue
 
-    maxDepth(arr[index], arr, depth)
-    depth[index] = depth[arr[index]] + 1
+        if depth[next] < 1:
+            stack.append(next)
+            continue
+
+        depth[current] = depth[arr[current]] + 1
+        stack.pop()
+    return max(depth)
 
 
 file = open("input.txt", "r")
 file.readline()
 values = list(int(number) for number in file.readline().split())
-depth = [0] * len(values)
-
 write = open("output.txt", "w")
-for i in range(0, len(values)): maxDepth(i, values, depth)
-write.write(str(max(depth)))
+write.write(str(maxDepth(values)))
 file.close()
 write.close()
