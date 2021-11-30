@@ -1,19 +1,16 @@
-import TrueStack
-
-
-# Meaningless code....
-s = TrueStack.TrueStack()
 file = open("input.txt", "r")
-result = []
-count = int(file.readline())
-for i in range(0, count):
-    data = file.readline().split()
-    if data[0] == "-":
-        result.append(str(s.pop()))
-    else:
-        s.add(int(data[1]))
+file.readline()
+values = list(int(number) for number in file.readline().split())
+isHeap = True
+l = len(values)
+for i in range(1, l // 2 + 1):
+    if values[i-1] <= values[i * 2] and (2 * i + 1 >= l or values[i-1] <= values[i * 2 + 1]):
+        continue
+
+    isHeap = False
+    break
 
 write = open("output.txt", "w")
-write.write("\n".join(result))
+write.write("YES" if isHeap else "NO")
 file.close()
 write.close()
