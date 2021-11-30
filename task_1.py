@@ -3,8 +3,8 @@ file.readline()
 values = list(int(number) for number in file.readline().split())
 isHeap = True
 l = len(values)
-for i in range(1, l // 2 + 1):
-    if values[i-1] <= values[i * 2] and (2 * i + 1 >= l or values[i-1] <= values[i * 2 + 1]):
+for i in range(1, l):
+    if values[(i - 1)//2] <= values[i]:
         continue
 
     isHeap = False
